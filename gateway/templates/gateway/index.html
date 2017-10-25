@@ -1,0 +1,9 @@
+{% extends 'gateway/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="collection">
+    {% for m in loaded_modules %}
+        <a href="{{ m.views.module_location }}" class="collection-item">{{ m.views.module_name }}</a>
+    {% endfor %}
+    </div>
+{% endblock %}

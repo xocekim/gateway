@@ -1,0 +1,16 @@
+{% extends 'gateway/base.html' %}
+
+{% block title %}Plusnet Setup{% endblock %}
+
+{% block navbar %}
+    <a href="/plusnet" class="breadcrumb">Plusnet</a>
+    <a href="#!" class="breadcrumb">Setup</a>
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'setup' %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Save" class="btn" />
+    </form>
+{% endblock %}

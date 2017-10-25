@@ -1,0 +1,84 @@
+{% extends 'gateway/base.html' %}
+
+{% block title %}Plusnet Bill{% endblock %}
+
+{% block navbar %}
+    <a href="/plusnet" class="breadcrumb">Plusnet</a>
+    <a href="/plusnet/bill" class="breadcrumb">Bill</a>
+{% endblock %}
+
+{% block content %}
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+
+    <div id="error" class="hiddendiv card-panel red lighten-2">
+    </div>
+
+    <div id="result" class="hiddendiv">
+        <h3 class="header">Next bill due</h3>
+        <p id="due"></p>
+
+        <h3 class="header">Broadband</h3>
+        <table class="bordered">
+            <tbody>
+            <tr>
+                <th>Product</th>
+                <td id="product"></td>
+            </tr>
+            <tr>
+                <th>Period</th>
+                <td id="period"></td>
+            </tr>
+            <tr>
+                <th>Usage</th>
+                <td id="usage"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 class="header">Previous bills</h3>
+        <table class="bordered">
+            <thead>
+            <tr>
+                <th>Invoice</th>
+                <th>Value</th>
+                <th>Balance</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody id="invoices"></tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('/plusnet/bill/json', null, function (data) {
+                if (data.error) {
+                    $('#error').text(data.error).removeClass('hiddendiv');
+                    $('.progress').hide();
+                    return;
+                }
+                $('#due').text(data.due);
+                $('#product').text(data.broadband.product);
+                $('#period').text(data.broadband.period);
+                $('#usage').text(data.broadband.usage);
+                for (var i = 0; i < data.invoices.length; i++) {
+                    var x = data.invoices[i];
+                    $("<tr>" +
+                        "<td>" + x.invoice + "</td>" +
+                        "<td>" + x.value + "</td>" +
+                        "<td>" + x.balance + "</td>" +
+                        "<td>" + x.date + "</td>" +
+                        "<td>" + x.status + "</td>" +
+                        "<td>" + x.desc + "</td>" +
+                        "</tr>").appendTo('#invoices');
+                }
+                $('#result').removeClass('hiddendiv');
+                $('.progress').hide();
+            });
+        });
+    </script>
+{% endblock %}

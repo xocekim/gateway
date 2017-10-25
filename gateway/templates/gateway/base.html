@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gateway - {% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/materialize.css">
+</head>
+<body>
+<script type="text/javascript" src="/static/js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/static/js/materialize.js"></script>
+{% block script %}{% endblock %}
+
+<nav>
+    <div class="nav-wrapper blue row">
+        <div class="breadcrumbs col">
+            <a href="/" class="breadcrumb">Gateway</a>
+            {% block navbar %}{% endblock %}
+        </div>
+        <ul class="right col">
+            <li><a href="/admin">Admin</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/logout?next_page=/">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<section class="container">
+    {% block content %}
+    {% endblock %}
+</section>
+</body>
+</html>

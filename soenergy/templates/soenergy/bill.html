@@ -1,0 +1,54 @@
+{% extends 'gateway/base.html' %}
+
+{% block title %}So Energy Bill{% endblock %}
+
+{% block navbar %}
+    <a href="/soenergy" class="breadcrumb">So Energy</a>
+    <a href="/soenergy/bill" class="breadcrumb">Bill</a>
+{% endblock %}
+
+{% block content %}
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+
+    <div id="error" class="hiddendiv card-panel red lighten-2">
+    </div>
+
+    <div id="result" class="hiddendiv">
+        <h3>Account Credit</h3>
+        <p id="credit"></p>
+
+        <h3>Next bill</h3>
+        <table class="bordered">
+            <tbody>
+            <tr>
+                <th>Date Due</th>
+                <td id="due"></td>
+            </tr>
+            <tr>
+                <th>Expected amount due</th>
+                <td id="next_amount"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('/soenergy/bill/json', null, function (data) {
+                if (data.error) {
+                    $('#error').text(data.error).removeClass('hiddendiv');
+                    $('.progress').hide();
+                    return;
+                }
+                $('#credit').html('&pound;' + data.credit);
+                $('#due').text(data.due);
+                $('#next_amount').html('&pound;' + data.next_amount);
+                $('#result').removeClass('hiddendiv');
+                $('.progress').hide();
+            });
+        });
+    </script>
+{% endblock %}
