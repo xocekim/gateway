@@ -1,4 +1,4 @@
-#Gateway
+# Gateway
 
 This project is to create an easy to use and consistant looking portal for users to access their web accounts and associated details. 
 
@@ -7,9 +7,15 @@ Currently working
 - [Plusnet](https://plus.net)
 - [So Energy](https://so.energy)
 
-## Creating your own modules
+## Requirements
+- requests
+- lxml
+- cssselect
 
+## Creating your own modules
+```text
 manage.py startapp <module_name>
+```
 
 create directory module_name/static  
 create directory module_name/templates  
@@ -132,6 +138,6 @@ edit gateway/urls.py
 ```python
 urlpatterns = [
     ...,
-    url(r'^soenergy/', include('soenergy.urls'))
+    url(r'^module_name/', include('module_name.urls'))
 ]
 ```
