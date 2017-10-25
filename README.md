@@ -5,7 +5,7 @@ This project is to create an easy to use and consistant looking portal for users
 ## Modules
 Currently working
 - [Plusnet](https://plus.net)
-- [So Energy](https://so.energy)
+- [So Energy](https://www.so.energy)
 
 ## Requirements
 - requests
